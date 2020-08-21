@@ -172,6 +172,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/20/global-var-in-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/astronaut-1002%C3%97629.png">
+      <meta itemprop="name" content="Aphea-Tech">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aphea-Tech's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/20/global-var-in-vue/" class="post-title-link" itemprop="url">global-var-in-vue</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-20 20:43:57 / 修改时间：20:57:24" itemprop="dateCreated datePublished" datetime="2020-08-20T20:43:57+08:00">2020-08-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>vue中获取全局变量及设置</p>
+<ol>
+<li><p>需要新建global.vue文件</p>
+<p>添加内容，例如</p>
+<p><code>export default {</code></p>
+<p><code>userName = &#39;&#39;,</code></p>
+<p><code>setUserName (name) {</code></p>
+<p><code>this.userName = name</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p>需要编写set方法</p>
+</li>
+<li><p>在main.js中引入</p>
+<p><code>import global from &#39;@/global.vue&#39;</code></p>
+<p>并设置</p>
+<p><code>Vue.prototype.Global = global</code></p>
+<p><code>global</code>为global.vue中暴露出的所有数据的集合，将其赋值给<code>Global</code>，</p>
+<p>在其他vue文件中，使用 <code>this.Global.userName</code>引用变量；</p>
+<p>使用 <code>this.Global.setUserName</code>以修改全局变量</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/26/computer-network/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -854,7 +933,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

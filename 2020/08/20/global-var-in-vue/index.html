@@ -20,15 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Aphea-Tech&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/categories/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/index.html">
+  <meta name="description" content="vue中获取全局变量及设置  需要新建global.vue文件 添加内容，例如 export default { userName &#x3D; &#39;&#39;, setUserName (name) { this.userName &#x3D; name } } 需要编写set方法  在main.js中引入 import global from &#39;@&#x2F;global.vue&#39; 并设置 Vue.p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="global-var-in-vue">
+<meta property="og:url" content="http://yoursite.com/2020/08/20/global-var-in-vue/index.html">
 <meta property="og:site_name" content="Aphea-Tech&#39;s Blog">
+<meta property="og:description" content="vue中获取全局变量及设置  需要新建global.vue文件 添加内容，例如 export default { userName &#x3D; &#39;&#39;, setUserName (name) { this.userName &#x3D; name } } 需要编写set方法  在main.js中引入 import global from &#39;@&#x2F;global.vue&#39; 并设置 Vue.p">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-20T12:43:57.000Z">
+<meta property="article:modified_time" content="2020-08-20T12:57:24.579Z">
 <meta property="article:author" content="Aphea-Tech">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/categories/%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">
+<link rel="canonical" href="http://yoursite.com/2020/08/20/global-var-in-vue/">
 
 
 <script id="page-configurations">
@@ -36,12 +40,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: 年度总结 | Aphea-Tech's Blog</title>
+  <title>global-var-in-vue | Aphea-Tech's Blog</title>
   
 
 
@@ -164,53 +168,101 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">年度总结
-          <small>分类</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/20/global-var-in-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/astronaut-1002%C3%97629.png">
+      <meta itemprop="name" content="Aphea-Tech">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aphea-Tech's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          global-var-in-vue
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-20 20:43:57 / 修改时间：20:57:24" itemprop="dateCreated datePublished" datetime="2020-08-20T20:43:57+08:00">2020-08-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <p>vue中获取全局变量及设置</p>
+<ol>
+<li><p>需要新建global.vue文件</p>
+<p>添加内容，例如</p>
+<p><code>export default {</code></p>
+<p><code>userName = &#39;&#39;,</code></p>
+<p><code>setUserName (name) {</code></p>
+<p><code>this.userName = name</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p>需要编写set方法</p>
+</li>
+<li><p>在main.js中引入</p>
+<p><code>import global from &#39;@/global.vue&#39;</code></p>
+<p>并设置</p>
+<p><code>Vue.prototype.Global = global</code></p>
+<p><code>global</code>为global.vue中暴露出的所有数据的集合，将其赋值给<code>Global</code>，</p>
+<p>在其他vue文件中，使用 <code>this.Global.userName</code>引用变量；</p>
+<p>使用 <code>this.Global.setUserName</code>以修改全局变量</p>
+</li>
+</ol>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-01T23:31:54+08:00"
-              content="2020-01-01">
-          01-01
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/01/01/summary2019/" itemprop="url">
-            <span itemprop="name">2019总结</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/26/computer-network/" rel="prev" title="《计算机网络》笔记">
+      <i class="fa fa-chevron-left"></i> 《计算机网络》笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
