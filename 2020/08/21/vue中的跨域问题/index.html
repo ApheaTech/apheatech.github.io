@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    global-var-in-vue |  
+    vue中的跨域问题 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -44,7 +44,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-global-var-in-vue"
+  id="post-vue中的跨域问题"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -55,22 +55,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  global-var-in-vue
+  vue中的跨域问题
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/08/20/global-var-in-vue/" class="article-date">
-  <time datetime="2020-08-20T12:43:57.000Z" itemprop="datePublished">2020-08-20</time>
+      <a href="/2020/08/21/vue%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-08-21T09:28:35.000Z" itemprop="datePublished">2020-08-21</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">111</span>
+            <span class="post-count">154</span>
         </span>
     </span>
 
@@ -92,25 +92,23 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>vue中获取全局变量及设置</p>
+  <p>用vue做的前端，当通过axios通信时，直接报错，且无返回码</p>
+<p><img src="/2020/08/21/vue%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/vue%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%5C%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF.png" alt="报错信息"></p>
+<p>目的url是http协议，通过测试发现，get其他https协议的url能够成功，初步判断是协议的问题，即跨域</p>
+<p>解决办法：</p>
 <ol>
-<li><p>需要新建global.vue文件</p>
-<p>添加内容，例如</p>
-<p><code>export default {</code></p>
-<p><code>userName = &#39;&#39;,</code></p>
-<p><code>setUserName (name) {</code></p>
-<p><code>this.userName = name</code></p>
-<p><code>}</code></p>
-<p><code>}</code></p>
-<p>需要编写set方法</p>
+<li>在vue.config.js中修改为</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        proxy: &#123;</span><br><span class="line">            <span class="string">'/api'</span>: &#123;</span><br><span class="line">                <span class="comment">// 此处的写法，目的是为了 将 /api 替换成 https://www.baidu.com/</span></span><br><span class="line">                target: <span class="string">'http://21m16493e8.wicp.vip/login'</span>,</span><br><span class="line">                <span class="comment">// 允许跨域</span></span><br><span class="line">                changeOrigin: <span class="literal">true</span>,</span><br><span class="line">                ws: <span class="literal">true</span>,</span><br><span class="line">                pathRewrite: &#123;</span><br><span class="line">                    <span class="string">'^/api'</span>: <span class="string">''</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>在axios.js中添加 <code>axios.defaults.baseURL = &#39;/api&#39;</code></p>
 </li>
-<li><p>在main.js中引入</p>
-<p><code>import global from &#39;@/global.vue&#39;</code></p>
-<p>并设置</p>
-<p><code>Vue.prototype.Global = global</code></p>
-<p><code>global</code>为global.vue中暴露出的所有数据的集合，将其赋值给<code>Global</code>，</p>
-<p>在其他vue文件中，使用 <code>this.Global.userName</code>引用变量；</p>
-<p>使用 <code>this.Global.setUserName</code>以修改全局变量</p>
+<li><p>在使用axios的地方修改为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.axios</span><br><span class="line">        .get(<span class="string">'/'</span>)</span><br><span class="line">        .then(<span class="function"><span class="params">response</span> =&gt;</span> <span class="built_in">console</span>.log(response))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通信成功</p>
+<p><img src="/2020/08/21/vue%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/E:%5CCareer%5C04Free%5CBlog%5Csource_posts%5Cvue%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%5C%E6%88%90%E5%8A%9F%E4%BF%A1%E6%81%AF.png" alt></p>
 </li>
 </ol>
  
@@ -181,11 +179,13 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/08/20/global-var-in-vue/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/08/21/vue%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
     </footer>
   </div>
 
@@ -193,9 +193,9 @@
   <nav class="article-nav">
     
     
-      <a href="/2020/03/26/computer-network/" class="article-nav-link">
+      <a href="/2020/08/20/vue%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%8F%8A%E8%AE%BE%E7%BD%AE/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">《计算机网络》笔记</div>
+        <div class="article-nav-title">vue中获取全局变量及设置</div>
       </a>
     
   </nav>
@@ -314,7 +314,7 @@
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="/images/ayer-side.svg" alt="Aphea-Tech&#39;s Blog"></a>
+    <a href="/"><img src="https://avatars2.githubusercontent.com/u/35363332?s=400&u=c3bfbf476130bbd61dda6aa110b1c22ab3db636e&v=4" alt="Aphea-Tech&#39;s Blog"></a>
   </div>
   
   <ul class="nav nav-main">
